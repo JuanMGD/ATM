@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,10 +13,21 @@
 <body>
     <?php 
         require '../Bank.php';
+        require '../ATM.php';
         use App\Bank;
+        use App\ATM;
+
+        $pin = $errorMessage = "";
+        $atmFunds = 5000;
+        $atm;
+
         session_start();
         
-        $pin = $errorMessage = "";
+        if (isset($_SESSION["pin"])) 
+            $atm = new ATM(new Bank($_SESSION["pin"]), 5000); 
+        else
+            header("location:index.php");
+        
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($_POST["pin"])) 
@@ -60,8 +71,9 @@
             <img id="card" class="in" src="../assets/credit-card.webp" alt="">
 
             <div class="options">
-                <button onclick="sumbit()">Aceptar</button>
-                <button>Cancelar</button>
+                <button class="btn" onclick="sumbit()">Accept</button>
+                <!-- <button class="btn">Cancelar</button> -->
+                <a href="./index.php" class="btn">Cancel</a>
             </div>
 
             <div class="keyboard">

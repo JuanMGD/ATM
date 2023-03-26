@@ -26,7 +26,7 @@ class ATM {
         if ($this->amountInAtm < $amount)
             return "Insufficient funds in ATM";
         
-        if ($amount % 100 != 0)
+        if (fmod(floatval($amount), 100) != 0)
             return "Amount must be a multiple of 100";
 
         $newBalance = $balance - $amount;
@@ -52,7 +52,7 @@ class ATM {
         // if ($this->amountInAtm < $amount)
         //     return "Insufficient funds in ATM";
         
-        if ($amount % 100 != 0)
+        if (fmod(floatval($amount), 100) != 0)
             return "Amount must be a multiple of 100";
 
         $newBalance = $balance + $amount;

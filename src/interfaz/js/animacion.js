@@ -1,4 +1,4 @@
-let cardIn = false;
+// let cardIn = false;
 
 card = document.getElementById('card');
 
@@ -25,7 +25,7 @@ card = document.getElementById('card');
 
 window.addEventListener("load", () => {
     setTimeout(() => {
-        card.style.transform = "translate(1px, -127%) rotate(90deg)";
+        card.style.transform = "translate(1px, -127%)";
     }, 80);
 
     setTimeout(() => {
@@ -33,6 +33,6 @@ window.addEventListener("load", () => {
         lowerSlot = document.getElementById('lowerSlot');
         upperSlot.classList.add("active")
         lowerSlot.classList.add("active")
-        cardIn = !cardIn;
+        // cardIn = !cardIn;
     }, 1057);
 })

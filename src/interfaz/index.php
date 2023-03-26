@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +17,10 @@
         session_start();
         
         $pin = $errorMessage = "";
+
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            unset($_SESSION['pin']);
+        }
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (empty($_POST["pin"])) 
@@ -47,11 +51,11 @@
         <div class="info">
             <h1 class="w-100 txt-center title">WD3 Bank</h1>
             <h2 class="w-100 txt-center title">Welcome</h2>
-            <p class="w-100 ml-1 info-txt">To begin using this ATM's services insert your pin</p>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                <input type="password" maxlength="4" id="input" class="input ml-1" name="pin" placeholder="Pin" value="<?php echo $pin;?>">
-                <input class="boton ml-1" type="submit" name="submit" value="Accept"><br>
-                <span class=<?php if(!empty($errorMessage)) echo "error"; else echo "";?>>
+            <p class="w-100 ml-1 info-txt txt-center">To begin using this ATM's services insert your pin</p>
+            <form id="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <input type="password" maxlength="4" id="input" class=" hidden" name="pin" placeholder="...." value="<?php echo $pin;?>">
+                <div id="input-box" class="input-box ml-1"><?php echo str_repeat("*", strlen($pin)) . str_repeat(".", 4 - strlen($pin));?></div>
+                <span id="err-msg" class=<?php if(!empty($errorMessage)) echo "error"; else echo "";?>>
                     <?php echo $errorMessage;?>
                 </span>
             </form>
@@ -61,26 +65,27 @@
             <div class="cover-top"></div>
             <div class="upper slot" id="upperSlot"></div>
             <div class="lower slot" id="lowerSlot"></div>
-            <img id="card" src="../assets/credit-card.webp" alt="">
+            <img id="card" src="../assets/card.svg" alt="">
 
             <div class="options">
-                <button onclick="sumbit()">Aceptar</button>
-                <button>Cancelar</button>
+                <button class="btn" onclick="accept()">Accept</button>
+                <!-- <button class="btn">Cancelar</button> -->
+                <a href="./index.php" class="btn">Cancel</a>
             </div>
 
             <div class="keyboard">
-                <button onclick="addNumbers(1)">1</button>
-                <button onclick="addNumbers(2)">2</button>
-                <button onclick="addNumbers(3)">3</button>
-                <button onclick="addNumbers(4)">4</button>
-                <button onclick="addNumbers(5)">5</button>
-                <button onclick="addNumbers(6)">6</button>
-                <button onclick="addNumbers(7)">7</button>
-                <button onclick="addNumbers(8)">8</button>
-                <button onclick="addNumbers(9)">9</button>
-                <button onclick="addNumbers(0)">0</button>
-                <button onclick="addNumbers('.')">.</button>
-                <button onclick="deleteNumber()">&#9003;</button>
+                <button onclick="addPinNumber(1)">1</button>
+                <button onclick="addPinNumber(2)">2</button>
+                <button onclick="addPinNumber(3)">3</button>
+                <button onclick="addPinNumber(4)">4</button>
+                <button onclick="addPinNumber(5)">5</button>
+                <button onclick="addPinNumber(6)">6</button>
+                <button onclick="addPinNumber(7)">7</button>
+                <button onclick="addPinNumber(8)">8</button>
+                <button onclick="addPinNumber(9)">9</button>
+                <button onclick="addPinNumber(0)">0</button>
+                <button>.</button>
+                <button onclick="deletePinNumber()">&#9003;</button>
             </div>
         </div>
     </main>
