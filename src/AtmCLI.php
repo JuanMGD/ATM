@@ -16,6 +16,28 @@ if (!$account->validatePin()) {
 $atmFunds = 5000;
 $atm = new ATM($account, $atmFunds);
 
-$amount = readline("Ingrese la cantidad a retirar:\n");
-echo $atm->withdraw($amount);
+$opciones = [
+    "1" => ["Retiro", function ($atm, $amount) {return $atm->withdraw($amount);}],
+    "2" => ["Depósito", function ($atm, $amount) {return $atm->deposit($amount);}],
+];
+$opcionSeleccionada = 0;
+$error = false;
+
+do {
+    if ($error) echo "Por favor seleccione solo las opciones disponibles\n";
+
+    foreach ($opciones as $index => $opcion) { 
+        echo "({$index}) {$opcion[0]}\n";
+    }
+
+    $opcionSeleccionada = readline("Seleccione la operación a realizar (ingrese un número): ");
+
+    $error = !array_key_exists($opcionSeleccionada, $opciones);
+
+} while ($error);
+
+
+$amount = readline("Ingrese la cantidad:\n");
+echo $opciones[$opcionSeleccionada][1]($atm, $amount);
+// echo $atm->withdraw($amount);
 ?>
