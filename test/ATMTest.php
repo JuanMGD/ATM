@@ -7,35 +7,35 @@ use PHPUnit\Framework\TestCase;
 
 class ATMTest extends TestCase {
     // TESTS WITH DATABASE
-    // public function testSuccessfulWithdrawWithDatabase() {
-    //     $account = new Bank("4987", 1000);
-    //     $atm = new ATM($account, 5000);
-    //     $this->assertEquals("Sucessful withdraw", $atm->withdraw(200));
-    // }
+    public function testSuccessfulWithdrawWithDatabase() {
+        $account = new Bank("4987", 1000);
+        $atm = new ATM($account, 5000);
+        $this->assertEquals("Sucessful withdraw", $atm->withdraw(200));
+    }
     
-    // public function testAtmOutOfMoneyWithDatabase() {
-    //     $account = new Bank("4987", 800);
-    //     $atm = new ATM($account, 0);
-    //     $this->assertEquals("ATM is out of money", $atm->withdraw(200));
-    // }
+    public function testAtmOutOfMoneyWithDatabase() {
+        $account = new Bank("4987", 800);
+        $atm = new ATM($account, 0);
+        $this->assertEquals("ATM is out of money", $atm->withdraw(200));
+    }
 
-    // public function testInsufficientFundsInAtmWithDatabase() {
-    //     $account = new Bank("4987", 800);
-    //     $atm = new ATM($account, 100);
-    //     $this->assertEquals("Insufficient funds in ATM", $atm->withdraw(200));
-    // }
+    public function testInsufficientFundsInAtmWithDatabase() {
+        $account = new Bank("4987", 800);
+        $atm = new ATM($account, 100);
+        $this->assertEquals("Insufficient funds in ATM", $atm->withdraw(200));
+    }
 
-    // public function testAmountIsNotMultipleOf100WithDatabase() {
-    //     $account = new Bank("4987", 800);
-    //     $atm = new ATM($account, 5000);
-    //     $this->assertEquals("Amount must be a multiple of 100", $atm->withdraw(50));
-    // }
+    public function testAmountIsNotMultipleOf100WithDatabase() {
+        $account = new Bank("4987", 800);
+        $atm = new ATM($account, 5000);
+        $this->assertEquals("Amount must be a multiple of 100", $atm->withdraw(50));
+    }
 
-    // public function testIncorrectPinWithDatabase() {
-    //     $account = new Bank("4978", 800);
-    //     $atm = new ATM($account, 5000);
-    //     $this->assertEquals("Wrong pin", $atm->withdraw(0));
-    // }
+    public function testIncorrectPinWithDatabase() {
+        $account = new Bank("4978", 800);
+        $atm = new ATM($account, 5000);
+        $this->assertEquals("Wrong pin", $atm->withdraw(0));
+    }
 
     // TESTS WITH MOCKS
 
