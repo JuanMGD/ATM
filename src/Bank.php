@@ -39,6 +39,13 @@ class Bank {
         $con->query("UPDATE account SET balance={$balance} where pin = '{$this->pin}';");
         $con->close();
     }
+
+    public function getAtmFunds() {
+        $con = new mysqli("localhost", "root", "", "bank");
+        $result = mysqli_fetch_array($con->query("SELECT funds FROM atmfunds where pin = '{$this->pin}';"));
+        $con->close();
+        return $result['funds'] ?? 0;
+    }
  }
  
 ?>

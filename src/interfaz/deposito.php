@@ -15,15 +15,17 @@
         use App\ATM;
         
         $amount = $errorMessage = "";
-        $atmFunds = 5000;
         $atm;
 
         session_start();
         
-        if (isset($_SESSION["pin"])) 
+        if (isset($_SESSION["pin"])) {
+            $atmObj = new Bank($_SESSION["pin"]);
+            $atmFunds = $atmObj->getAtmFunds();
             $atm = new ATM(new Bank($_SESSION["pin"]), $atmFunds); 
-        else
+        } else {
             header("location:index.php");
+        }
         
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
