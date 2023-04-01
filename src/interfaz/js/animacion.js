@@ -25,7 +25,8 @@ card = document.getElementById('card');
 
 window.addEventListener("load", () => {
     setTimeout(() => {
-        card.style.transform = "translate(1px, -127%)";
+        // card.style.transform = "translate(1px, -127%)";
+        card.style.transform = "translate(1px, -100vh)";
     }, 80);
 
     setTimeout(() => {

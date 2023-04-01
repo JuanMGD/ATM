@@ -63,13 +63,12 @@
         <div class="credit-card-container" onload="animar()">
             <div class="frame"></div>
             <div class="cover-top"></div>
-            <div class="upper slot" id="upperSlot"></div>
-            <div class="lower slot" id="lowerSlot"></div>
-            <img id="card" src="../assets/card.svg" alt="">
+            <div class="upper slot <?php if($_SERVER["REQUEST_METHOD"] == "POST") echo 'active'?>" id="upperSlot"></div>
+            <div class="lower slot <?php if($_SERVER["REQUEST_METHOD"] == "POST") echo 'active'?>" id="lowerSlot"></div>
+            <img id="card" class="<?php if($_SERVER["REQUEST_METHOD"] == "POST") echo 'in' ?>" src="../assets/card.svg" alt="">
 
             <div class="options">
                 <button class="btn" onclick="accept()">Accept</button>
-                <!-- <button class="btn">Cancelar</button> -->
                 <a href="./index.php" class="btn">Cancel</a>
             </div>
 

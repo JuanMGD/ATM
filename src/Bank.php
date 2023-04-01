@@ -46,6 +46,20 @@ class Bank {
         $con->close();
         return $result['funds'] ?? 0;
     }
+
+    public function validateAccountNumber($accountNumber) {
+        $con = new mysqli("localhost", "root", "", "bank");
+        $result = mysqli_fetch_array($con->query("SELECT accountNumber FROM account where accountNumber = '{$accountNumber}';"));
+        $con->close();
+        return $result && $result != null;
+    }
+
+    public function transferFunds($accountNumber, $amount) {
+        $con = new mysqli("localhost", "root", "", "bank");
+        $con->query("UPDATE account SET balance = balance - {$amount} where pin = '{$this->pin}';");
+        $con->query("UPDATE account SET balance = balance + {$amount} where accountNumber = '{$accountNumber}';");
+        $con->close();
+    }
  }
  
 ?>

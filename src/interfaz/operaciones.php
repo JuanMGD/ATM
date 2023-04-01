@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,57 +11,69 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>ATM</title>
 </head>
+
 <body>
-    <?php 
-        require '../Bank.php';
-        require '../ATM.php';
-        use App\Bank;
-        use App\ATM;
+    <?php
+    require '../Bank.php';
+    require '../ATM.php';
 
-        $pin = $errorMessage = "";
-        $atmFunds = 5000;
-        $atm;
+    use App\Bank;
+    use App\ATM;
 
-        session_start();
-        
-        if (isset($_SESSION["pin"])) 
-            $atm = new ATM(new Bank($_SESSION["pin"]), 5000); 
-        else
-            header("location:index.php");
-        
+    $pin = $errorMessage = "";
+    $atmFunds = 5000;
+    $atm;
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (empty($_POST["pin"])) 
-                $errorMessage = "Pin is required";
+    session_start();
+
+    if (isset($_SESSION["pin"]))
+        $atm = new ATM(new Bank($_SESSION["pin"]), 5000);
+    else
+        header("location:index.php");
+
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (empty($_POST["pin"]))
+            $errorMessage = "Pin is required";
+        else {
+            $pin = test_input($_POST["pin"]);
+            $account = new Bank($pin);
+
+            if (!$account->validatePin())
+                $errorMessage = "Wrong pin";
             else {
-                $pin = test_input($_POST["pin"]);
-                $account = new Bank($pin);
-        
-                if (!$account->validatePin())
-                    $errorMessage = "Wrong pin";
-                else {
-                    $_SESSION["pin"] = $pin;
-                    header("location:retiro.php?");
-                }
+                $_SESSION["pin"] = $pin;
+                header("location:retiro.php?");
             }
-            
         }
+    }
 
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
     ?>
-    
+
     <main class="contenedor">
         <div class="info">
             <h1 class="w-100 txt-center title">WD3 Bank</h1>
             <h2 class="w-100 txt-center title">Select an operation</h2>
             <div class="operations">
-                <a href="./retiro.php" class="boton ml-1">Withdraw</a>
-                <a href="./deposito.php" class="boton ml-1">Deposit</a>
+                <a href="./retiro.php" class="boton ml-1 withdrawBtn">
+                    <img class="icon" src="../assets/icons/withdrawIcon.svg" alt="">
+                    Withdraw cash
+                </a>
+                <a href="./deposito.php" class="boton ml-1 depositBtn">
+                    <img class="icon" src="../assets/icons/depositIcon.svg" alt="">
+                    Deposit money
+                </a>
+                <a href="./transferenciaCuenta.php" class="boton ml-1 transferBtn">
+                    <img class="icon" src="../assets/icons/transferIcon.svg" alt="">
+                    Funds transfer
+                </a>
             </div>
         </div>
         <div class="credit-card-container" onload="animar()">
@@ -93,4 +106,5 @@
         </div>
     </main>
 </body>
+
 </html>
