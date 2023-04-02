@@ -62,7 +62,7 @@ class ATM {
 
         // Validate account exists
         if (!$this->bankAccount->validateAccountNumber($accountNumber))
-            return "Wrong pin";
+            return "Account not found";
 
         // Validate current account has enough funds
         $balance = $this->bankAccount->getAccountBalance();
